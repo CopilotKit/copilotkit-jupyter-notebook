@@ -1,4 +1,4 @@
-import { HttpAgent } from "@ag-ui/client";
+import { LangGraphHttpAgent } from "@ag-ui/langgraph";
 import {
   CopilotRuntime,
   createCopilotEndpoint,
@@ -6,13 +6,13 @@ import {
 } from "@copilotkit/runtime/v2";
 import { handle } from "hono/vercel";
 
-const agent = new HttpAgent({
+const agent = new LangGraphHttpAgent({
   url: process.env.LANGGRAPH_DEPLOYMENT_URL || "http://localhost:8000",
 });
 
 const runtime = new CopilotRuntime({
   agents: {
-    // @ts-expect-error - Version mismatch between @ag-ui/client versions
+    // @ts-expect-error - Type version mismatch with bundled @ag-ui packages
     default: agent,
   },
   runner: new InMemoryAgentRunner(),
